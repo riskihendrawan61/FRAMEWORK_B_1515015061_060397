@@ -35,6 +35,7 @@ Route::get('Hello-world', function () {
 Route::get('berita/{berita?}', function ($berita="Laravel 5") {
     return "berita $berita belum di baca";
 });*/
+Route::get('mahasiswa_pengguna','mahasiswacontroller@mahasiswa');
 Route::get('pengguna','penggunacontroller@awal');
 Route::get('pengguna/tambah','penggunacontroller@tambah');
 Route::get('pengguna/{pengguna}','penggunacontroller@lihat');

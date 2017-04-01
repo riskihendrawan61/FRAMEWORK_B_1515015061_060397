@@ -15,11 +15,17 @@ class mahasiswacontroller extends Controller
     public function tambah(){
     	return $this->simpan();
     }
+    public function mahasiswa(){
+        $mahasiswa = mahasiswa::find(3);
+        echo "nama:".$mahasiswa->nama;
+        echo "<br>";
+        echo "username:".$mahasiswa->pengguna->username;
+    }
     public function simpan(){
     	$mahasiswa = new mahasiswa();
-    	$mahasiswa->nama = "Mochammad Rizky Wahyudianto";
-    	$mahasiswa->nim = "1515015055";
-    	$mahasiswa->alamat = "Jl pattimura";
+    	$mahasiswa->nama = "riski hendrawan";
+    	$mahasiswa->nim = "1515015061";
+    	$mahasiswa->alamat = "Jl perjuangan";
     	$mahasiswa->pengguna_id = 1;
     	$mahasiswa->save();
     	return "Data Mahasiswa dengan Nama {$mahasiswa->nama} telah disimpan";
