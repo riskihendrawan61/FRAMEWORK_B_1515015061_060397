@@ -1,12 +1,13 @@
 <div class="form-group">
-	<label class="col-sm-2 control-label">Username</label>
+	<label class="col-sm-2 control-label">Title</label>
 	<div class="col-sm-10">
-		{!! Form::text('username',null,['class'=>'form-control','placeholder'=>"Username"]) !!}
+		{!! Form::text('title',null,['class'=>'form-control','placeholder'=>"Title"]) !!}
 	</div>	
 </div>
 <div class="form-group">
-	<label class="col-sm-2 control-label">Password</label>
+	<label class="col-sm-2 control-label">Keterangan</label>
 	<div class="col-sm-10">
-		{!! Form::password('password',['class'=>'form-control','placeholder'=>"Password"]) !!}
+		{!! Form::text('keterangan',null,['class'=>'form-control','placeholder'=>"Keterangan"]) !!}
 	</div>	
 </div>
+

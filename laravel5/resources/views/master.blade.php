@@ -80,7 +80,7 @@
 		<nav class="navbar navbar-default navbar-fixed-bottom">
 		<footer class="container">
 			<!-- Please dont delete this -->
-			created by <a href="https://www.instagram.com/donyramadhan14/"><span><i class="fa fa-facebook" style="color:#1da1f2"></i> @donyramadhan</span></a>
+			created by <a href="https://www.Instagram.com/riskyhendrawan63?ref=bookmarks"><span><i class="fa fa-facebook" style="color:#1da1f2"></i> @riskyhendrawan63</span></a>
 			<!--/ Please dont delete this -->
 		</footer>	
 		</nav>
