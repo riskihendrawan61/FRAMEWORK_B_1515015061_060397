@@ -3,29 +3,29 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContrast;
+use Illuminate\Auth\Authenticatable;
 
-class Pengguna extends Model
+class pengguna extends Model implements AuthenticatableContrast
 {
-
-    protected $table = 'pengguna';// digunakan untuk mendeklarasikan tabel pengguna
-
- protected $guarded=['id'];    
-
+    use Authenticatable;
+    //
+    protected $table = 'pengguna';
     //protected $fillable = ['username','password'];
-
-    //DISINI MODEL PENGGUNA BERELASI DENGAN MODEL MAHASISWA DAN DOSEN
-
-    public function mahasiswa(){ //UNTUK MENENTUKAN HUBUNGANNYA, DIBUAT FUNGSI MAHASISWA PADA MODEL PENGGUNA 
-
-    	return $this->hasOne(Mahasiswa::class) ;// memberikan nilai return dari fungsi hasOne yang merelasikan pengguna dengan mahasiswa dengan foreign key pengguna_id
-    } 
-
-    public function dosen(){ //UNTUK MENENTUKAN HUBUNGANNYA, DIBUAT FUNGSI DOSEN PADA MODEL PENGGUNA 
-		
-        return $this->hasOne(Dosen::class); // memberikan nilai return dari fungsi hasOne yang merelasikan pengguna dengan dosen dengan foreign key pengguna_id
-	}
-	
-	//public function peran(){
-	//return $this->belongsToMany(Peran::class);
-	// }
+    protected $guarded = ['id'];
+    
+    public function mahasiswa() // membuat fungsi dengan nama mahasiswa
+    {
+    	return $this->hasOne(mahasiswa::class);
+    	//sintaks ini menghubungkan antara model mahasiswa dengan model pengguna, yang artinya kita bisa mengakses model mahasiswa melalui model mpengguna. sintaks hasOne sendiri menandakan hubungan relasinya adalah one to one
+    }
+    public function dosen() //membuat fungs dengan nama dosen
+    {
+    	return $this->hasOne(dosen::class);
+    	//sintaks ini menghubungkan antara model dosen dengan model pengguna, yang artinya kita bisa mengakses isi dari model dosen melalui model pengguna. sintaks hasOne sendiri menandakan hubungan relasinya adalah one to one
+    }
+    public function peran()
+    {
+    	return $this->belongsToMany(peran::class);
+    }
 }

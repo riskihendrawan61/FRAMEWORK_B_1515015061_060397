@@ -4,29 +4,27 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Jadwal_matakuliah extends Model
+class jadwal_matakuliah extends Model
 {
-    protected $table = 'jadwal_matakuliah'; // digunakan untuk mendeklarasikan tabel jadwal_matakuliah
+    //
+    protected $table = 'jadwal_matakuliah';
+    protected $guarded = ['id'];
+    //protected $fillable = ['mahasiswa_id','dosen_id','matakuliah_id'];
 
-    protected $guarded = ['id']; // mengabaikan atribut id pada saat melakikan insert/update
-
-    //protected $fillable = ['mahasiswa_id','ruangan_id','dosen_matakuliah_id'];
-
-    //DISINI MODEL JADWAL_MATAKULIAH BERELASI DENGAN MODEL MAHASISWA, DOSEN_MATAKULIAH DAN RUANGAN
-
-    public function mahasiswa(){ // UNTUK MENENTUKAN HUBUNGANNYA, DIBUAT FUNGSI DENGAN NAMA MAHASISWA PADA MODEL JADWAL_MATAKULIAH
-
-    return $this->belongsTo(mahasiswa::class); // memberikan nilai return dari fungsi belongsTo yang merelasikan banyak jadwal_matakuliah dengan mahasiswa
-
-	  }
-
-	  public function dosen_matakuliah(){  // UNTUK MENENTUKAN HUBUNGANNYA, DIBUAT FUNGSI DENGAN NAMA DOSEN_MATAKULIAH PADA MODEL JADWAL_MATAKULIAH
-
-    return $this->belongsTo(Dosen_matakuliah::class); // memberikan nilai return dari fungsi belongsTo yang merelasikan dosen_matakuliah dengan banyak jadwal_Matakuliah
+    public function mahasiswa() //membuat fungsi dengan nama mahasiswa
+    {
+    	return $this->belongsTo(mahasiswa::class);
+    	//sintaks ini fungsinya untuk menyatakan relasi dari model jadwal_matakuliah dan model mahasiswa. jadi kita dapat mengakses model mahasiswa, meskipun pengaksesannya melalui model jadwal_matakuliah. jadi kita bisa menampilkan isi tabel mahasiswa, melalui model jadwal_matakuliah.
     }
+    public function ruangan() //membuat fungsi dengan nama ruangan
+    {
+    	return $this->belongsTo(ruangan::class);
+    	//sintaks ini fungsinya untuk menyatakan relasi dari model ruangan dan model jadwal_matakuliah. sehingga kita bisa mengakses model ruangan melalui model jadwal_matakuliah, begitu pula sebaliknya.
 
-    public function ruangan(){ // UNTUK MENENTUKAN HUBUNGANNYA, DIBUAT FUNGSI DENGAN NAMA RUANGAN PADA MODEL JADWAL_MATAKULIAH
-
-    return $this->belongsTo(Ruangan::class); // memberikan nilai return dari fungsi belongsTo yang merelasikan ruangan dengan banyak jadwal_matakuliah
-   }
+    }
+    public function dosen_matakuliah() //membuat fungsi dengan nama dosen_matakuliah
+    {
+    	return $this->belongsTo(dosen_matakuliah::class);
+    	//sintak ini menghubungkan antara model dosen_matakuliah dengan model jadwal_matakuliah, jadi kita bisa mengakses isi dari model dosen_matakuliah melalui model jadwal_matakuliah. begitu juga kebalikannya.
+    }
 }

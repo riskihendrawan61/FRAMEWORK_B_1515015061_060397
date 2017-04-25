@@ -4,34 +4,36 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Mahasiswa extends Model
+class mahasiswa extends Model
 {
-    protected $table = 'mahasiswa'; // digunakan untuk mendeklarasikan tabel mahasiswa
-    protected $guarded=['id'];
+    protected $table = 'mahasiswa';
+    //protected $fillable = ['nim','nama','alamat','pengguna_id'];
+    protected $guarded = ['id'];
 
-    //protected $fillable = ['nama','nim','alamat','pengguna_id'];
+    public function pengguna() //membuat fungsi dengan nama pengguna
+    {
+    	return $this->belongsTo(pengguna::class);
+        //sintaks ini menghubungkan antara model mahasiswa dengan model pengguna, yang artinya kita bisa mengakses model pengguna melalui model mahasiswa. jadi isi dai tabel pengguna bisa kita tampilkan melalui model mahasiswa, begitu juga kebalikannya.
+    }
 
-    //DISINI MODEL MAHASISWA BERELASI DENGAN MODEL PENGGUNA DAN JADWAL_MATAKULIAH
+    public function jadwal_matakuliah() //membuat fungsi dengan nama jadwal_matakuliah
+    {
+    	return $this->hasMany(jadwal_matakuliah::class);
+        //sintaks ini menghubungkan antara model mahasiswa dengan model jadwal_matakuliah,artinya kita bisa mengakses model jadwal_matakuliah melalui model mahasiswa.sintaks hasmany menandakan bahwa relasinya adalah one to many.
+    }
 
-    public function pengguna() { // UNTUK MENENTUKAN HUBUNGANNYA, DIBUAT FUNGSI DENGAN NAMA PENGGUNA PADA MODEL MAHASISWA
-   
-    	return $this->belongsTo(Pengguna::class); // memberikan nilai return dari fungsi belongsTo yang merelasikan mahasiswa dengan pengguna
+    public function getusernameAttribute()
+    {
+        return $this->pengguna->username;
     }
     
-    public function jadwal_matakuliah(){ // UNTUK MENENTUKAN HUBUNGANNYA, DIBUAT FUNGSI DENGAN JADWAL_MATAKULIAH PADA MODEL MAHASISWA
-
-        return $this->hasMany(JadwaL_matakuliah::class); // memberikaN nilai return dari fungsi hasMany yang merelasikan mahasiswa dengan banyak jadwal_matakuliah dengan foreign key mahasiswa_id
-    }
-
-    public function getUsernameAttribute(){
-    	return $this->pengguna->username;
-    }
-
-    public function listMahasiswaDanNim(){
+    public function listmahasiswadannim()
+    {
         $out = [];
-        foreach ($this->all() as $mhs) {
+        foreach ($this->all() as $mhs)
+        {
             $out[$mhs->id] = "{$mhs->nama} ({$mhs->nim})";
         }
-    return $out;
+        return $out;
     }
 }

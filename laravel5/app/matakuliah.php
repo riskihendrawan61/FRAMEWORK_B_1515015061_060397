@@ -4,17 +4,26 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Matakuliah extends Model
+class matakuliah extends Model
 {
-    protected $table = 'matakuliah'; // digunakan untuk mendeklarasikan tabel matakuliah
-
+    //
+    protected $table = 'matakuliah';
     //protected $fillable = ['title','keterangan'];
+    protected $guarded = ['id'];
 
-    //DISINI MODEL MATAKULIAH BERELASI DENGAN MODEL DOSEN_MATAKULIAH
+    public function dosen_matakuliah() //membuat fungsi dengan nama dosen_matakuliah
+    {
+    	return $this->hasMany(dosen_matakuliah::class);
+    	//sintaks ini membuat hubungan antara model matakuliah dengan model dosen_matakuliah, yang artinya kita bisa mengakses isi model dosen_matakuliah melalui model matakuliah. jadi isi dari tabel dosen_matakuliah bisa kita tampilkan melalui model matakuliah, begitu juga kebalikannya.sintaks hasmany menandakan bahwa relasinya adalah one to many.
+    }
 
-      public function dosen_matakuliah(){ // UNTUK MENENTUKAN HUBUNGANNYA, DIBUAT FUNGSI DENGAN NAMA DOSEN_MATAKULIAH PADA MODEL MATAKULIAH
-
-      return $this->hasMany(Dosen_matakuliah::class); // memberikan nilai return dari fungsi hasMany yang merelasikan matakuliah dengan banyak dosen_matakuliah dengan foreign key matakuliah_id
-
-   }
+    public function listmatakuliah()
+    {
+        $out = [];
+        foreach ($this->all() as $mtk)
+        {
+            $out[$mtk->id] = "{$mtk->title}";
+        }
+        return $out;
+    }
 }

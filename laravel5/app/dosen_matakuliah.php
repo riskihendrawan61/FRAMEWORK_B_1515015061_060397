@@ -4,36 +4,39 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Dosen_matakuliah extends Model
+class dosen_matakuliah extends Model
 {
-   protected $table = 'dosen_matakuliah'; // digunakan untuk mendeklarasikan tabel dosen_matakuliah
+    //
+    protected $table = 'dosen_matakuliah';
+    //protected $fillable = ['dosen_id','matakuliah_id'];
+    protected $guarded = ['id'];
 
-  protected $guarded =['id'];//mengabaikan aribut id pada saat melakukan insert/delete oleh eloquent
-
-  //protected $fillable = ['dosen_id','matakuliah_id'];
-
-   //DISINI MODEL DOSEN_MATAKULIAH BERELASI DENGAN MODEL DOSEN, JADWAL_MATAKULIAH DAN MATAKULIAH
-
-   public function dosen(){ // UNTUK MENENTUKAN HUBUNGANNYA, DIBUAT FUNGSI DENGAN NAMA DOSEN PADA MODEL DOSEN_MATAKULIAH
-	 
-       return $this->belongsTo(Dosen::class); // memberikan nilai return dari fungsi belongsTo yang  merelasikan model dosen dengan model dosen_matakuliah
-	  }
-
-	 public function jadwal_matakuliah(){ // UNTUK MENENTUKAN HUBUNGANNYA, DIBUAT FUNGSI DENGAN NAMA JADWAL_MATAKULIAH PADA MODEL DOSEN_MATAKULIAH
-
-       return $this->hasMany(Jadwal_matakuliah::class); // memberikan nilai return dari fungsi hasMany yang merelasikan model dosen_matakuliah dengan banyak model jadwal_matakuliah dengan foreign key dosen_matakuliah_id
+    public function dosen() //membuat fungsi dengan nama dosen
+    {
+    	return $this->belongsTo(dosen::class);
+        //sintaks ini fungsinya untuk menyatakan relasi dari model dosen_matakuliah dan model dosen. sehingga kita bisa mngakses model dosen melalui model dosen_matakuliah, begitu pula sebaliknya.jadi kita bisa mengambil isi tabelnya
     }
 
-   public function matakuliah(){ // UNTUK MENENTUKAN HUBUNGANNYA, DIBUAT FUNGSI DENGAN NAMA MATAKULIAH PADA MODEL DOSEN_MATAKULIAH
-       
-       return $this->belongsTo(Matakuliah::class); // memberikan nilai return dari fungsi belongsTo yang merelasikan banyak model dosen_matakuliah dengan model matakuliah
+    public function matakuliah() //membuat fungsi dengan nama matakuliah
+    {
+    	return $this->belongsTo(matakuliah::class);
+        //fungsinya untuk menyatakan relasi dari model dosen_matakuliah dan model atakuliah. sehingga kita bisa mngakses model matakuliah melalui model dosen_matakuliah, begitu pula sebaliknya.
     }
 
-     public function listDosendanMatakuliah(){
+    public function jadwal_matakuliah() //membuat fungsi dengan nama jadwal_matakuliah
+    {
+    	return $this->hasMany(jadwal_matakuliah::class);
+        //sintaks ini fungsinya untuk menyatakan relasi dari model dosen_matakuliah dan model jadwal_matakuliah. sehingga kita bisa mngakses model jadwal_matakuliah melalui model dosen, begitu pula sebaliknya.
+        //sintaks hasmany menyatakan hubungan relasiny adalah one to many.
+    }
+
+    public function listdosenmatakuliah()
+    {
         $out = [];
-        foreach ($this->all() as $dsnMtk) {
-            $out[$dsnMtk->id] = "{$dsnMtk->dosen->nama} (Matakuliah {$dsnMtk->matakuliah->title})";
+        foreach ($this->all() as $dsnmtk)
+        {
+            $out[$dsnmtk->id] = "{$dsnmtk->dosen->nama} (matakuliah {$dsnmtk->matakuliah->title})";
         }
-    return $out;
-}
+        return $out;
+    }
 }

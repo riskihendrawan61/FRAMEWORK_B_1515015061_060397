@@ -38,8 +38,8 @@
     <body>
         <div class="container">
             <div class="content">
-                <div class="title">Riski Hendrawan cantiiik</div>
+                <div class="title">Riski Cantik</div>
             </div>
         </div>
     </body>
-</html>
+</html> 

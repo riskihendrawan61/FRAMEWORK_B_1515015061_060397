@@ -4,31 +4,28 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Dosen extends Model
+class dosen extends Model
 {
-    protected $table = 'dosen';  // digunakan untuk mendeklarasikan tabel dosen
-
-      protected $guarded = ['id'];  //berfungsi untuk mengabaikan atribut id oleh Eloquent pada saat kita melakukan insert/update
-
+    //
+    protected $table = 'dosen';
     //protected $fillable = ['nama','nip','alamat','pengguna_id'];
+    protected $guarded = ['id'];
 
-     //DISINI MODEL DOSEN_MATAKULIAH BERELASI DENGAN MODEL PENGGUNA DAN MODEL DOSEN_MATAKULIAH
-
-    public function pengguna(){ // UNTUK MENENTUKAN HUBUNGANNYA, DIBUAT FUNGSI DENGAN NAMA PENGGUNA PADA MODEL DOSEN
-
-   	return $this->belongsTo(Pengguna::class); // fungsi pengguna yang mempunyai nilai return dari fungsi belongsTo yang merelasikan tabel pengguna dengan model dosen
+    public function pengguna() //membuat fungsi dengan nama pengguna
+    {
+    	return $this->belongsTo(pengguna::class); //sintaks ini berfungsi untuk mendekllarasikan relasi dari model dosen dan model pengguna. dengan nilai return belongsTO model pengguna. sehingga kita bisa mengakses isi dari tabel pengguna melalui model dosen,begitu pula sebaliknya.
     }
-   
-   public function dosen_matakuliah(){  // UNTUK MENENTUKAN HUBUNGANNYA, DIBUAT FUNGSI DENGAN NAMA DOSEN_MATAKULIAH PADA MODEL DOSEN
-
-   return $this->hasMany(Dosen_matakuliah::class);  // model dosen_matakuliah yang mempunyai nilai return dari fungsi hasMany yang merelasikan dosen dengan banyak dosen_matakuliah dengan dosen_id sebagai foreign key nya
-   }
-
-   public function listDosenDanNip(){
+    public function dosen_matakuliah() // membuat fungsi dengan nama dosen_matakuliah
+    {
+    	return $this->hasMany(dosen_matakuliah::class); //sintaks ini fungsinya untuk menyatakan relasi dari model dosen dan model dosen_matakuliah. sehingga kita bisa mngakses tabel dosen_matakuliah melalui model dosen, begitu pula sebaliknya. sintaks hasmany menandakan bahwa relasinya adalah one to many.
+    }
+    public function listdosendannip()
+    {
         $out = [];
-        foreach ($this->all() as $dsn) {
-            $out[$dsn->id] = "{$dsn->nama} ({$dsn->nip})";
+        foreach ($this->all() as $dosen)
+        {
+            $out[$dosen->id] = "{$dosen->nama} ({$dosen->nip})";
         }
-    return $out;
+        return $out;
     }
 }

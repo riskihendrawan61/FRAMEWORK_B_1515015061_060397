@@ -4,17 +4,16 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Ruangan extends Model
+class ruangan extends Model
 {
-    protected $table = 'ruangan'; // digunakan untuk mendeklarasikan tabel pengguna
+    //
+    protected $table = 'ruangan';
+    //protected $fillable = ['tittle'];
+    protected $guarded = ['id'];
 
-    //protected $fillable = ['title'];
-
-    //DISINI MODEL PENGGUNA BERELASI DENGAN MODEL JADWAL_MATAKULIAH
-
-     public function jadwal_matakuliah(){ // UNTUK MENENTUKAN HUBUNGANNYA, DIBUAT FUNGSI JADWAL_MATAKULIAH PADA MODEL PENGGUNA
-        
-     return $this->hasMany(JadwaL_matakuliah::class); // memberikan nilai return dari fungsi hasMany dengan merelasikan ruangan dengan banyak jadwal_matakuliah dengan foreign key ruangan_id
-    
+    public function jadwal_matakuliah() //membuat fungsi dengan nama jadwal_matakuliah
+    {
+    	return $this->hasMany(jadwal_matakuliah::class);
+    	//sintaks ini menghubungkan antara model ruangan dengan model jadwal_matakuliah, jadi kita bisa mengakses isi model jadwal_matakuliah melalui model ruangan. sintaks hasMany sendiri menandakan hubungan relasinya adalah many to many.
     }
 }
